@@ -1,0 +1,241 @@
+.overlap-aboutus {
+  height: 570px;
+  left: 0;
+  position: absolute;
+  top: 171px;
+  width: 1336px;
+}
+
+.rectangle-aboutus {
+  background-color: #0b7077;
+  height: 1895px;
+  left: 0;
+  position: absolute;
+  top: 50px;
+  width: 1680px;
+}
+
+.rectangle-2-aboutus {
+  background-color: #fd661f;
+  height: 30px;
+  left: 0;
+  position: absolute;
+  top: 50px;
+  width: 1680px;
+}
+
+.rectangle-3-aboutus {
+  background-color: #fd661f;
+  height: 30px;
+  left: 0;
+  position: absolute;
+  top: 760px;
+  width: 1680px;
+}
+
+.rectangle-4-aboutus {
+  background-color: #fd661f;
+  height: 30px;
+  left: 0;
+  position: absolute;
+  top: 1920px;
+  width: 1680px;
+}
+
+.text-wrapper-aboutus {
+  color: #ffffff;
+  font-family: "Raleway-Bold", Helvetica;
+  font-size: 45px;
+  font-weight: 700;
+  left: 740px;
+  letter-spacing: 0.5px;
+  line-height: normal;
+  position: absolute;
+  top:137px;
+  white-space: nowrap;
+  width: 120px;
+}
+
+.p-aboutus {
+  color: #ffffff;
+  font-family: "Inter-Regular", Helvetica;
+  font-size: 40px;
+  font-weight: 400;
+  left: 322px;
+  letter-spacing: 0.4px;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: 323px;
+  width: 1056px;
+}
+
+.text-wrapper-2-aboutus {
+  color: #fd661f;
+  font-family: "Raleway-ExtraBold", Helvetica;
+  font-size: 53px;
+  font-weight: 800;
+  left: 606px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 233px;
+  white-space: nowrap;
+}
+
+.image2-aboutus {
+  height: 330px;
+  left: 495px;
+  object-fit: cover;
+  position: absolute;
+  top: 1091px;
+  width: 717px;
+}
+
+.leader {
+  height: 230px;
+  left: 735px;
+  object-fit: cover;
+  position: absolute;
+  top: 851px;
+  width: 230px;
+}
+
+.p-leader {
+  color: #ffffff;
+  font-family: "Inter-Regular", Helvetica;
+  font-size: 30px;
+  font-weight: 400;
+  left: 1022px;
+  letter-spacing: 0.4px;
+  line-height: normal;
+  position: absolute;
+  text-align: justify;
+  top: 853px;
+  width: 200px;
+}
+
+.p-leader-motto {
+  color: #ffffff;
+  font-family: "Inter-Regular", Helvetica;
+  font-size: 25px;
+  font-weight: 400;
+  left: 1022px;
+  letter-spacing: 0.4px;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: 903px;
+  width: 600px;
+}
+
+.dev1 {
+  height: 230px;
+  left: 235px;
+  object-fit: cover;
+  position: absolute;
+  top: 1141px;
+  width: 230px;
+}
+
+.p-dev1 {
+  color: #ffffff;
+  font-family: "Inter-Regular", Helvetica;
+  font-size: 30px;
+  font-weight: 400;
+  left: 282px;
+  letter-spacing: 0.4px;
+  line-height: normal;
+  position: absolute;
+  text-align: justify;
+  top: 1363px;
+  width: 200px;
+}
+
+.p-dev1-motto {
+  color: #ffffff;
+  font-family: "Inter-Regular", Helvetica;
+  font-size: 25px;
+  font-weight: 400;
+  left: 52px;
+  letter-spacing: 0.4px;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: 1423px;
+  width: 600px;
+}
+
+.dev2 {
+  height: 230px;
+  left: 735px;
+  object-fit: cover;
+  position: absolute;
+  top: 1441px;
+  width: 230px;
+}
+
+.p-dev2 {
+  color: #ffffff;
+  font-family: "Inter-Regular", Helvetica;
+  font-size: 30px;
+  font-weight: 400;
+  left: 780px;
+  letter-spacing: 0.4px;
+  line-height: normal;
+  position: absolute;
+  text-align: justify;
+  top: 1663px;
+  width: 200px;
+}
+
+.p-dev2-motto {
+  color: #ffffff;
+  font-family: "Inter-Regular", Helvetica;
+  font-size: 25px;
+  font-weight: 400;
+  left: 550px;
+  letter-spacing: 0.4px;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: 1733px;
+  width: 600px;
+}
+
+.dev3 {
+  height: 230px;
+  left: 1255px;
+  object-fit: cover;
+  position: absolute;
+  top: 1141px;
+  width: 230px;
+}
+
+.p-dev3 {
+  color: #ffffff;
+  font-family: "Inter-Regular", Helvetica;
+  font-size: 30px;
+  font-weight: 400;
+  left: 1307px;
+  letter-spacing: 0.4px;
+  line-height: normal;
+  position: absolute;
+  text-align: justify;
+  top: 1363px;
+  width: 200px;
+}
+
+.p-dev3-motto {
+  color: #ffffff;
+  font-family: "Inter-Regular", Helvetica;
+  font-size: 25px;
+  font-weight: 400;
+  left: 1052px;
+  letter-spacing: 0.4px;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: 1423px;
+  width: 600px;
+}
