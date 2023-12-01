@@ -39,16 +39,46 @@ const Login = () => {
     navigate('/Signup');
   };
 
-  const handleRegister = () => {
-    // Trim whitespace from username and password
+  const handleRegister = async () => {
     const trimmedUsername = username.trim();
     const trimmedPassword = password.trim();
-  
-    if (trimmedUsername && trimmedPassword) {
-  
-      navigate('/DashboardStudent');
-    } else {
-      alert('Please enter both username and password.');
+
+    try {
+      if (trimmedUsername && trimmedPassword) {
+        // Call the authentication API endpoint
+        const response = await fetch('http://localhost:8080/authenticate', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            username: trimmedUsername,
+            password: trimmedPassword,
+          }),
+        });
+
+        if (response.ok) {
+          // Authentication successful
+          const authenticatedUser = await response.json();
+
+          // Check the userType to navigate accordingly
+          if (authenticatedUser.userType === 'student') {
+            navigate('/StudentDashboard');
+          } else if (authenticatedUser.userType === 'teacher') {
+            navigate('/TeacherDashboard');
+          } else {
+            // Handle other user types or scenarios
+            console.error('Invalid user type or scenario.');
+          }
+        } else {
+          console.error('Authentication failed:', response.status, response.statusText);
+          // Handle authentication failure, show an error message, etc.
+        }
+      } else {
+        alert('Please enter both username and password.');
+      }
+    } catch (error) {
+      console.error('Error during authentication:', error);
     }
   };
 
@@ -120,7 +150,7 @@ const Login = () => {
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', marginTop: '50px' }}>
         <div className="Rectangle51" style={{ width: 614.69, height: 55.97, background: 'white', borderRadius: 10, border: '1px #0b7077cc solid', marginRight: '500px', marginBottom: '20px' }}>
           <TextField
-            id="outlined-basic"
+            id="username"
             label="Username"
             variant="outlined"
             fullWidth
@@ -131,7 +161,7 @@ const Login = () => {
 
         <div className="Rectangle51" style={{ width: 614.69, height: 55.97, background: 'white', borderRadius: 10, border: '1px #0b7077cc solid', marginRight: '500px', marginBottom: '20px' }}>
           <TextField
-            id="outlined-basic"
+            id="password"
             label="Password"
             variant="outlined"
             fullWidth
