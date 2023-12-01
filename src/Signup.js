@@ -32,7 +32,18 @@ const Signup = () => {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [userType, setUserType] = useState('student');
-  const [ setPasswordError] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const [passwordError, setPasswordError] = useState('');
+  const [showPasswordReminder, setShowPasswordReminder] = useState(false);
+
+  const handlePasswordFocus = () => {
+    setShowPasswordReminder(true);
+  };
+
+  const handlePasswordBlur = () => {
+    setShowPasswordReminder(false);
+  };
 
   const validatePassword = (password) => {
     const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,}$/;
@@ -41,11 +52,13 @@ const Signup = () => {
 
   const validateFields = () => {
     if (!username || !password || !email) {
+      alert('You must fill up all the information boxes below.');
       return false;
     }
 
     if (!validatePassword(password)) {
-      setPasswordError('Password must be at least 8 characters with a combination of uppercase, lowercase, and special characters.');
+      // Display alert if the password format is not met
+      alert('Password must be at least 8 characters with a combination of uppercase, lowercase, and special characters.');
       return false;
     }
 
@@ -65,22 +78,47 @@ const Signup = () => {
     navigate('/Login');
   };
 
-  const handleRegister = () => {
-    console.log('Handling registration...');
-    if (validateFields()) {
-      simulateRegistration();
-  
-      alert('SIGN_UP SUCCESS!');
-  
-      if (userType === 'student') {
-        console.log('Navigating to /DashboardStudent');
-        navigate('/DashboardStudent');
-      } else if (userType === 'teacher') {
-        console.log('Navigating to /DashboardTeacher');
-        navigate('/DashboardTeacher');
-      }
+  const handleRegister = async () => {
+    try {
+      if (validateFields()) {
+        setLoading(true);
+        await simulateRegistration(); // Simulated registration logic
+        await handleActualRegistration(); // Your actual registration logic
+        setLoading(false);
+      } 
+    } catch (error) {
+      console.error('Error during registration:', error);
+      setLoading(false);
     }
   };
+
+  const handleActualRegistration = async () => {
+    try {
+      const response = await fetch('http://localhost:8080/users', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: username,
+          password: password,
+          email: email,
+          userType: userType,
+        }),
+      });
+
+      if (response.ok) {
+        alert('SIGN_UP SUCCESS!');
+        navigate('/Login');
+      } else {
+        console.error('Registration failed:', response.status, response.statusText);
+      }
+    } catch (error) {
+      console.error('Error during registration:', error);
+    }
+  };
+
+
   return (
     <div className="App">
       {/* Header */}
@@ -130,9 +168,47 @@ const Signup = () => {
         <div className="Rectangle51" style={{ width: 614.69, height: 55.97, background: 'white', borderRadius: 10, border: '1px #0b7077cc solid', marginRight: '500px', marginBottom: '20px' }}>
           <TextField id="outlined-basic" label="Username" variant="outlined" fullWidth onChange={(e) => setUsername(e.target.value)} />
         </div>
-        <div className="Rectangle51" style={{ width: 614.69, height: 55.97, background: 'white', borderRadius: 10, border: '1px #0b7077cc solid', marginRight: '500px', marginBottom: '20px' }}>
-          <TextField id="outlined-basic" label="Password" variant="outlined" fullWidth type="password" onChange={(e) => setPassword(e.target.value)} />
-        </div>
+        <div
+            className="Rectangle51"
+            style={{
+              width: 614.69,
+              height: 55.97,
+              background: 'white',
+              borderRadius: 10,
+              border: '1px #0b7077cc solid',
+              marginRight: '500px',
+              marginBottom: '20px',
+            }}
+          >
+            <TextField
+              id="outlined-basic"
+              label="Password"
+              variant="outlined"
+              fullWidth
+              type="password"
+              onChange={(e) => {
+                setPassword(e.target.value);
+                setPasswordError('');
+              }}
+              onFocus={handlePasswordFocus}
+              onBlur={handlePasswordBlur}
+            />
+            {showPasswordReminder && (
+              <div
+                style={{
+                  color: '#0b7077cc',
+                  fontSize: '14px',
+                  marginTop: '5px',
+                  marginLeft: '10px',
+                }}
+              >
+                Password must be at least 8 characters with a combination of uppercase, lowercase, and special characters.
+              </div>
+            )}
+            {passwordError && (
+              <p style={{ color: 'red', fontSize: '14px', marginTop: '5px', marginLeft: '10px' }}>{passwordError}</p>
+            )}
+          </div>
         <div className="Rectangle51" style={{ width: 614.69, height: 55.97, background: 'white', borderRadius: 10, border: '1px #0b7077cc solid', marginRight: '500px', marginBottom: '30px'}}>
           <TextField id="outlined-basic" label="Email" variant="outlined" fullWidth onChange={(e) => setEmail(e.target.value)} />
         </div>
@@ -152,6 +228,7 @@ const Signup = () => {
         </div>
         <Button
           variant="contained"
+          disabled={loading}
           style={{
             width: 419,
             height: 73,
@@ -171,7 +248,7 @@ const Signup = () => {
           }}
           onClick={handleRegister}
         >
-          Sign-Up
+          {loading ? 'Signing Up...' : 'Sign-Up'}
         </Button>
       </div>
 
