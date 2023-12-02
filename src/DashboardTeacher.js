@@ -1,12 +1,14 @@
 import React, {useState} from 'react';
 import './App.css'
 import { Button, Menu, MenuItem } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import logo from './Mathinik.png';
 
 const DashboardTeacher = () => {
     const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = useState(null);
+    const location = useLocation();
+    const username = location.state?.username || '';
   
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
@@ -17,8 +19,6 @@ const DashboardTeacher = () => {
     };
   
     const handleLogout = () => {
-      // Add your logout logic here (e.g., clear authentication token)
-      // Then navigate to the login page
       navigate('/HPage');
     };
 
@@ -61,7 +61,7 @@ const DashboardTeacher = () => {
         </div>
 
         <img className='user' alt='User'  src='User.png'></img>
-        <div className="text-username">Username</div>
+        <div className="text-username">{username}</div>
 
         <div className='logout'>
             <Button
@@ -102,7 +102,7 @@ const DashboardTeacher = () => {
     return (
         <div className="App">
             {/*Header */}
-            <Header />
+            <Header username={username}/>
 
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginLeft: 900, marginRight: 20, flexDirection: 'column' }}>
                 <div style={{ textAlign: 'right', marginRight: 10 }}>
