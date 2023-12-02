@@ -1,13 +1,14 @@
-import React, {useState, useEffect } from 'react';
+import React, {useState} from 'react';
 import './App.css'
 import { Button, Menu, MenuItem } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import logo from './Mathinik.png';
 
 const DashboardStudent = () => {
   const navigate = useNavigate();
-  const [username, setUsername] = useState('');
   const [anchorEl, setAnchorEl] = useState(null);
+  const location = useLocation();
+  const username = location.state?.username || '';
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -18,29 +19,8 @@ const DashboardStudent = () => {
   };
 
   const handleLogout = () => {
-    // Add your logout logic here (e.g., clear authentication token)
-    // Then navigate to the login page
     navigate('/HPage');
   };
-
-  // Placeholder function for fetching user data
-  const getUserData = async () => {
-    // Replace this with your actual implementation to fetch user data
-    return { username: 'user' }; // Replace 'JohnDoe' with the actual username
-  };
-
-  // Fetch user information when the component mounts
-  useEffect(() => {
-    // Example: Fetch user information from your authentication context or backend
-    // Replace this with your actual implementation
-    const fetchUserData = async () => {
-      // Assuming you have a function to get user data
-      const userData = await getUserData(); // Replace with your actual function
-      setUsername(userData.username);
-    };
-
-    fetchUserData();
-  }, []); // Empty dependency array ensures the effect runs only once on mount
 
   const Header = () => {
     return (
@@ -57,7 +37,6 @@ const DashboardStudent = () => {
         <img className='plus' alt='Plus'  src='Plus.png'></img>
         <img className='user' alt='User'  src='User.png'></img>
         <div className="text-username">{username}</div>
-
         <div className='logout'>
             <Button
               aria-controls="simple-menu"
@@ -96,7 +75,7 @@ const DashboardStudent = () => {
   return (
     <div className="App">
       {/* Header */}
-      <Header />
+      <Header username={username}/>
 
       {/* Content Section */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginLeft: 900, marginRight: 20, flexDirection: 'column' }}>
