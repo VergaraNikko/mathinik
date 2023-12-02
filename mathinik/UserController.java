@@ -1,8 +1,8 @@
-package com.csit321g2.vergara.Controller;
+package com.csit321g2.Olbenario.Controller;
 
 import java.util.List;
 
-import javax.persistence.EntityNotFoundException;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.csit321g2.vergara.Entity.User;
-import com.csit321g2.vergara.Service.UserService;
+import com.csit321g2.Olbenario.Entity.User;
+import com.csit321g2.Olbenario.Service.UserService;
+
+
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -57,18 +59,16 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
     
-    @PostMapping("login")
-    public ResponseEntity<User> loginUser(@RequestBody  User loginRequest) {
-    	String username = loginRequest.getUsername();
-    	String password = loginRequest.getPassword();
-    	
-    	User user = userService.loginUser(username, password);
-        
-    	if(user != null) {
-    	 return ResponseEntity.ok(user);
-    	}else {
-    		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "Invalid credentials", "details", "Invalid username or password"));
-    	}
-    }
-}
+    @PostMapping("/login")
+    public ResponseEntity<User> loginUser(@RequestBody User user) {
+        // Assuming you have a method in UserService to authenticate users
+        User authenticatedUser = userService.authenticateUser(user.getUsername(), user.getPassword());
 
+        if (authenticatedUser != null) {
+            return new ResponseEntity<>(authenticatedUser, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+    }
+    
+}
