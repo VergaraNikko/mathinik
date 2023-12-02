@@ -26,6 +26,7 @@ const Login = () => {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  
 
   const handleNavigateToAdmin = () => {
     navigate('/Login_Admin');
@@ -39,52 +40,41 @@ const Login = () => {
     navigate('/Signup');
   };
 
-  const handleRegister = async () => {
-    const trimmedUsername = username.trim();
-    const trimmedPassword = password.trim();
-
+  const handleLogin = async () => {
     try {
-      if (trimmedUsername && trimmedPassword) {
-        // Call the authentication API endpoint
-        const response = await fetch('http://localhost:8080/authenticate', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            username: trimmedUsername,
-            password: trimmedPassword,
-          }),
-        });
+      const response = await fetch('http://localhost:8080/users/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: username,
+          password: password,
+        }),
+      });
 
-        if (response.ok) {
-          // Authentication successful
-          const authenticatedUser = await response.json();
+      if (response.ok) {
+        const user = await response.json();
+        console.log(user);
+        alert('LOGIN SUCCESS!');
 
-          // Check the userType to navigate accordingly
-          if (authenticatedUser.userType === 'student') {
-            navigate('/StudentDashboard');
-          } else if (authenticatedUser.userType === 'teacher') {
-            navigate('/TeacherDashboard');
-          } else {
-            // Handle other user types or scenarios
-            console.error('Invalid user type or scenario.');
-          }
-        } else {
-          console.error('Authentication failed:', response.status, response.statusText);
-          // Handle authentication failure, show an error message, etc.
-        }
+        // Navigate based on user type or other logic if needed
+        navigate('/DashboardStudent');
       } else {
-        alert('Please enter both username and password.');
+        const error = await response.json();
+        console.error('Error during login:', error);
+        alert('LOGIN FAILED!');
       }
     } catch (error) {
-      console.error('Error during authentication:', error);
+      console.error('Error during login:', error);
+      alert('LOGIN FAILED!');
     }
   };
 
+
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
-      handleRegister();
+      handleLogin();
     }
   };
 
@@ -150,7 +140,7 @@ const Login = () => {
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', marginTop: '50px' }}>
         <div className="Rectangle51" style={{ width: 614.69, height: 55.97, background: 'white', borderRadius: 10, border: '1px #0b7077cc solid', marginRight: '500px', marginBottom: '20px' }}>
           <TextField
-            id="username"
+            id="outlined-basic"
             label="Username"
             variant="outlined"
             fullWidth
@@ -161,7 +151,7 @@ const Login = () => {
 
         <div className="Rectangle51" style={{ width: 614.69, height: 55.97, background: 'white', borderRadius: 10, border: '1px #0b7077cc solid', marginRight: '500px', marginBottom: '20px' }}>
           <TextField
-            id="password"
+            id="outlined-basic"
             label="Password"
             variant="outlined"
             fullWidth
@@ -199,7 +189,7 @@ const Login = () => {
              display: 'inline-flex',
              marginRight: 620,
            }}
-           onClick={handleRegister}
+           onClick={handleLogin}
         >
           Log in
         </Button>
