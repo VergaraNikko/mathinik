@@ -1,14 +1,15 @@
-package com.csit321g2.vergara.Service;
+package com.csit321g2.Olbenario.Service;
 
 import java.util.List;
+
 
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.csit321g2.vergara.Entity.User;
-import com.csit321g2.vergara.Repository.UserRepository;
+import com.csit321g2.Olbenario.Entity.User;
+import com.csit321g2.Olbenario.Repository.UserRepository;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -25,16 +26,6 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
     
-    @Override
-    public User authenticateUser(String username, String password) {
-        // Implement logic to authenticate the user by checking the database
-        User user = userRepository.findByUsernameAndPassword(username, password);
-        if (user != null) {
-            return user;
-        } else {
-            throw new EntityNotFoundException("User authentication failed");
-        }
-    }
 
     @Override
     public User getUser(int userid) {
@@ -60,5 +51,15 @@ public class UserServiceImpl implements UserService {
         
     }
     
+    public User authenticateUser(String username, String password) {
+        User user = userRepository.findByUsername(username);
+
+        if (user != null && user.getPassword().equals(password)) {
+            return user;
+        } else {
+            return null;
+        }
+    }
 
 }
+
