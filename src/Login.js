@@ -52,7 +52,7 @@ const Login = () => {
         if (user.usertype === 'student') {
           navigate('/DashboardStudent', {state:{username: user.username} });
         } else if (user.usertype === 'teacher') {
-          navigate('/DashboardTeacher');
+          navigate('/DashboardTeacher', {state:{username: user.username} });
         } else {
           console.error('Unknown user type:', user.usertype);
           alert('LOGIN FAILED!');
