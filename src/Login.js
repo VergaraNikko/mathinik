@@ -50,7 +50,7 @@ const Login = () => {
 
         // Check the user type and navigate accordingly
         if (user.usertype === 'student') {
-          navigate('/DashboardStudent');
+          navigate('/DashboardStudent', {state:{username: user.username} });
         } else if (user.usertype === 'teacher') {
           navigate('/DashboardTeacher');
         } else {
