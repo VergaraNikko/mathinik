@@ -55,11 +55,17 @@ const Login = () => {
 
       if (response.ok) {
         const user = await response.json();
-        console.log(user);
-        alert('LOGIN SUCCESS!');
 
-        // Navigate based on user type or other logic if needed
-        navigate('/DashboardStudent');
+        // Check the user type and navigate accordingly
+        if (user.usertype === 'student') {
+          navigate('/DashboardStudent');
+        } else if (user.usertype === 'teacher') {
+          navigate('/DashboardTeacher');
+        } else {
+          console.error('Unknown user type:', user.usertype);
+          alert('LOGIN FAILED!');
+        }
+
       } else {
         const error = await response.json();
         console.error('Error during login:', error);
