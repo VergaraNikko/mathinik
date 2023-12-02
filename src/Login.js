@@ -26,15 +26,7 @@ const Login = () => {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  
 
-  const handleNavigateToAdmin = () => {
-    navigate('/Login_Admin');
-  };
-
-  const handleNavigateToTeacher = () => {
-    navigate('/LoginTeacher');
-  };
 
   const handleNavigateToRegister = () => {
     navigate('/Signup');
@@ -104,16 +96,6 @@ const Login = () => {
 
       {/* SignUp/Login Section */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexDirection: 'column' }}>
-        
-        {/* Login as Admin */}
-        <div onClick={handleNavigateToAdmin} className="LoginAsAdmin" style={{ marginLeft: 1350, width: 225, color: '#0b7077cc', fontSize: 26, fontFamily: 'Poppins', fontWeight: '600', wordWrap: 'break-word', marginBottom: 10 }}>
-            Login as Admin
-          </div>
-
-        {/* Login as Teacher */}
-        <div onClick={handleNavigateToTeacher} className="LoginAsAdmin" style={{ marginLeft: 1350, width: 225, color: '#fd661f', fontSize: 26, fontFamily: 'Poppins', fontWeight: '600', wordWrap: 'break-word', textDecoration: 'underlined' }}>
-          Login as Teacher
-        </div>
 
         {/* SignUp/Login Section */}
         <div style={{ textAlign: 'right', marginRight: 10 }}> {/* Updated margin-right */}
