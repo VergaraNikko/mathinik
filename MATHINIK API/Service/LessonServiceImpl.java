@@ -1,14 +1,16 @@
-package com.csit321g2.vergara.Service;
+package com.csit321g2.Olbenario.Service;
 
-import com.csit321g2.vergara.Entity.LessonEntity;
-import com.csit321g2.vergara.Entity.TeacherEntity;
-import com.csit321g2.vergara.Repository.LessonRepository;
-import com.csit321g2.vergara.Repository.TeacherRepository;
+import com.csit321g2.Olbenario.Entity.LessonEntity;
+import com.csit321g2.Olbenario.Entity.User;
+import com.csit321g2.Olbenario.Repository.LessonRepository;
+import com.csit321g2.Olbenario.Repository.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
+
 
 @Service
 public class LessonServiceImpl implements LessonService {
@@ -17,17 +19,18 @@ public class LessonServiceImpl implements LessonService {
     private LessonRepository lessonRepository;
 
     @Autowired
-    private TeacherRepository teacherRepository;
+    private UserRepository userRepository;
 
     @Override
-    public LessonEntity createLesson(int teacherid, String title, String description) {
-        TeacherEntity teacher = teacherRepository.findById(teacherid)
-                .orElseThrow(() -> new EntityNotFoundException("Teacher not found"));
+    public LessonEntity createLesson(int userid, String title, String description, String content) {
+        User user = userRepository.findById(userid)
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
 
         LessonEntity lesson = new LessonEntity();
-        lesson.setTeacher(teacher);
+        lesson.setUser(user);
         lesson.setTitle(title);
         lesson.setDescription(description);
+        lesson.setContent(content);
 
         return lessonRepository.save(lesson);
     }
@@ -44,14 +47,15 @@ public class LessonServiceImpl implements LessonService {
     }
 
     @Override
-    public LessonEntity updateLesson(int lessonid, int teacherid, String title, String description) {
+    public LessonEntity updateLesson(int lessonid, int userid, String title, String description, String content) {
         LessonEntity existingLesson = getLesson(lessonid);
-        TeacherEntity teacher = teacherRepository.findById(teacherid)
+        User user = userRepository.findById(userid)
                 .orElseThrow(() -> new EntityNotFoundException("Teacher not found"));
 
-        existingLesson.setTeacher(teacher);
+        existingLesson.setUser(user);
         existingLesson.setTitle(title);
         existingLesson.setDescription(description);
+        existingLesson.setContent(content);
 
         return lessonRepository.save(existingLesson);
     }
@@ -61,4 +65,3 @@ public class LessonServiceImpl implements LessonService {
         lessonRepository.deleteById(lessonid);
     }
 }
-
