@@ -1,7 +1,7 @@
-package com.csit321g2.vergara.Controller;
+package com.csit321g2.Olbenario.Controller;
 
-import com.csit321g2.vergara.Entity.LessonEntity;
-import com.csit321g2.vergara.Service.LessonService;
+import com.csit321g2.Olbenario.Entity.LessonEntity;
+import com.csit321g2.Olbenario.Service.LessonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/lessons")
 public class LessonController {
@@ -19,13 +20,15 @@ public class LessonController {
 
     @PostMapping
     public ResponseEntity<LessonEntity> createLesson(@RequestBody Map<String, Object> request) {
-        int teacherid = (int) request.get("teacherid");
+        int userid = (int) request.get("userid");
         String title = (String) request.get("title");
         String description = (String) request.get("description");
+        String content = (String) request.get("content");
 
-        LessonEntity createdLesson = lessonService.createLesson(teacherid, title, description);
+        LessonEntity createdLesson = lessonService.createLesson(userid, title, description, content);
         return new ResponseEntity<>(createdLesson, HttpStatus.CREATED);
     }
+
 
 
     @GetMapping("/{lessonid}")
@@ -43,11 +46,12 @@ public class LessonController {
     @PutMapping("/{lessonid}")
     public ResponseEntity<LessonEntity> updateLesson(@PathVariable int lessonid,
                                                     @RequestBody Map<String, String> request) {
-        int teacherid = Integer.parseInt(request.get("teacherid"));
+        int userid = Integer.parseInt(request.get("userid"));
         String title = request.get("title");
         String description = request.get("description");
+        String content = request.get("content");
 
-        LessonEntity updatedLesson = lessonService.updateLesson(lessonid, teacherid, title, description);
+        LessonEntity updatedLesson = lessonService.updateLesson(lessonid, userid, title, description, content);
         return new ResponseEntity<>(updatedLesson, HttpStatus.OK);
     }
 
