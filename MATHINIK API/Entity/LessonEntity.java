@@ -1,14 +1,13 @@
-package com.csit321g2.vergara.Entity;
+package com.csit321g2.Olbenario.Entity;
+
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
 import javax.persistence.Table;
 
 @Entity
@@ -17,63 +16,84 @@ public class LessonEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "lessonid")
+    
     private int lessonid;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "teacherid", nullable = false)
-    private TeacherEntity teacher;
+    @JoinColumn(name = "userid", nullable = false)
+     private User user;
 
-    @Column(name = "title")
     private String title;
-
-    @Column(name = "description")
+    
     private String description;
+    
+    private String content;
 
-	public LessonEntity(int lessonid, TeacherEntity teacher, String title, String description) {
-		super();
-		this.lessonid = lessonid;
-		this.teacher = teacher;
-		this.title = title;
-		this.description = description;
-	}
-
+	
     public LessonEntity() {
     	
     }
 
-	public int getLessonId() {
+
+	public LessonEntity(int lessonid, User user, String title, String description, String content) {
+		super();
+		this.lessonid = lessonid;
+		this.user = user;
+		this.title = title;
+		this.description = description;
+		this.content = content;
+	}
+
+
+	public int getLessonid() {
 		return lessonid;
 	}
 
-	public void setLessonId(int lessonid) {
+
+	public void setLessonid(int lessonid) {
 		this.lessonid = lessonid;
 	}
 
-	public TeacherEntity getTeacher() {
-		return teacher;
+
+	public User getUser() {
+		return user;
 	}
 
-	public void setTeacher(TeacherEntity teacher) {
-		this.teacher = teacher;
+
+	public void setUser(User user) {
+		this.user = user;
 	}
+
 
 	public String getTitle() {
 		return title;
 	}
 
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
 
 	public String getDescription() {
 		return description;
 	}
 
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
-    
+
+
+	public String getContent() {
+		return content;
+	}
+
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	
     
 }
-
